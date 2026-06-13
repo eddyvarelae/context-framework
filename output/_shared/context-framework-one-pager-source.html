@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Context-Driven Development Framework — One Pager</title>
+<style>
+  @page { size: Letter; margin: 0; }
+  :root {
+    --ink: #0e1116;
+    --muted: #5a6472;
+    --line: #d9dee5;
+    --bg: #fafbfc;
+    --card: #ffffff;
+    --accent: #1b4ed8;
+    --read: #2563eb;     /* read-only */
+    --edit: #16a34a;     /* editable */
+    --gen: #b45309;      /* generated */
+    --append: #7c3aed;   /* append-only */
+    --pill-bg: #eef2ff;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: -apple-system, "SF Pro Text", "Inter", Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    width: 8.5in; height: 11in;
+    padding: 0.45in 0.5in;
+    display: flex; flex-direction: column;
+    gap: 14px;
+  }
+
+  /* Header */
+  header { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+  header .title h1 {
+    font-size: 22px; line-height: 1.15; margin: 0 0 4px 0;
+    font-weight: 700; letter-spacing: -0.01em;
+  }
+  header .title .sub {
+    font-size: 11px; color: var(--muted); margin: 0;
+    text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600;
+  }
+  header .principle {
+    flex: 0 0 3.4in;
+    border-left: 3px solid var(--accent);
+    padding: 4px 0 4px 12px;
+    font-size: 10.5px; line-height: 1.45;
+    color: var(--ink);
+  }
+  header .principle b { color: var(--accent); }
+
+  /* Section titles */
+  .sect-title {
+    font-size: 9.5px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--muted);
+    margin: 0 0 8px 0;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .sect-title::after {
+    content: ""; flex: 1; height: 1px; background: var(--line);
+  }
+
+  /* Flow diagram */
+  .flow {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px 16px 16px;
+  }
+  .flow-row {
+    display: grid;
+    grid-template-columns: 1fr 24px 1fr 24px 1fr;
+    align-items: center;
+    gap: 0;
+  }
+  .node {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 12px;
+    min-height: 78px;
+    position: relative;
+  }
+  .node .tag {
+    display: inline-block;
+    font-size: 7.5px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 2px 6px; border-radius: 4px;
+    background: var(--pill-bg); color: var(--accent);
+    margin-bottom: 6px;
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+  .node h3 { margin: 0; font-size: 13px; font-weight: 700; }
+  .node p { margin: 4px 0 0 0; font-size: 9.5px; line-height: 1.35; color: var(--muted); }
+
+  .arrow {
+    color: var(--muted);
+    text-align: center;
+    font-size: 18px;
+    font-weight: 300;
+  }
+
+  /* The system box wraps the middle column */
+  .system {
+    grid-column: 3 / 4;
+    background: linear-gradient(180deg, #f3f6ff 0%, #eef2ff 100%);
+    border: 1px solid #c7d2fe;
+    border-radius: 10px;
+    padding: 10px 12px;
+    min-height: 78px;
+  }
+  .system .tag { background: #ddd6fe; color: #5b21b6; }
+  .system h3 { font-size: 13px; margin: 0; font-weight: 700; color: #1e1b4b; }
+  .system p { margin: 4px 0 0 0; font-size: 9.5px; line-height: 1.35; color: #3730a3; }
+
+  /* Iteration loop below the flow */
+  .loop {
+    margin-top: 12px;
+    border-top: 1px dashed var(--line);
+    padding-top: 10px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 10px; color: var(--muted);
+  }
+  .loop .pill {
+    background: #fff7ed; color: #9a3412;
+    border: 1px solid #fed7aa;
+    padding: 3px 8px; border-radius: 999px;
+    font-size: 9.5px; font-weight: 600;
+  }
+  .loop b { color: var(--ink); }
+
+  /* Five layers grid */
+  .layers {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+  .layer {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 11px;
+    background: var(--card);
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .layer .head {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 5px;
+  }
+  .layer .name {
+    font-family: "SF Mono", ui-monospace, Menlo, monospace;
+    font-size: 12px; font-weight: 700; color: var(--ink);
+    white-space: nowrap;
+  }
+  .badge {
+    font-size: 7.5px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 2px 6px; border-radius: 4px;
+    color: #fff;
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+  .badge.read   { background: var(--read); }
+  .badge.edit   { background: var(--edit); }
+  .badge.gen    { background: var(--gen); }
+  .badge.append { background: var(--append); }
+
+  .layer .role {
+    font-size: 10px; font-weight: 600; color: var(--ink);
+  }
+  .layer .desc {
+    font-size: 9px; line-height: 1.4; color: var(--muted);
+    margin: 0;
+  }
+
+  /* Workflow steps */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+  }
+  .step {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 9px 10px;
+    background: var(--card);
+    position: relative;
+  }
+  .step .num {
+    position: absolute; top: -8px; left: 9px;
+    background: var(--ink); color: #fff;
+    width: 18px; height: 18px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700;
+  }
+  .step h4 {
+    margin: 6px 0 3px 0;
+    font-size: 10.5px; font-weight: 700;
+  }
+  .step p {
+    margin: 0; font-size: 9px; line-height: 1.35; color: var(--muted);
+  }
+
+  /* Rules row */
+  .rules {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .rule {
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    padding: 9px 11px;
+    background: var(--card);
+  }
+  .rule .label {
+    font-size: 8.5px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--accent); margin-bottom: 3px;
+  }
+  .rule p {
+    margin: 0; font-size: 10px; line-height: 1.4; color: var(--ink);
+  }
+  .rule.warn { border-left-color: #b45309; }
+  .rule.warn .label { color: #b45309; }
+  .rule.good { border-left-color: #15803d; }
+  .rule.good .label { color: #15803d; }
+
+  /* Footer */
+  footer {
+    margin-top: auto;
+    padding-top: 8px;
+    border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 8.5px; color: var(--muted);
+  }
+  footer .legend { display: flex; gap: 10px; align-items: center; }
+  footer .swatch {
+    display: inline-block;
+    width: 8px; height: 8px; border-radius: 2px;
+    margin-right: 4px; vertical-align: middle;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="title">
+      <p class="sub">Context-Driven Development Framework</p>
+      <h1>Context replaces prompting.</h1>
+    </div>
+    <div class="principle">
+      <b>Core principle.</b> The problem is never the model — it is the absence of structured context.
+      You stop iterating on output and start iterating on the <b>system</b> that produces output.
+      Without context the system guesses; with context, it executes with intent.
+    </div>
+  </header>
+
+  <!-- FLOW DIAGRAM -->
+  <section>
+    <p class="sect-title">The Workflow</p>
+    <div class="flow">
+      <div class="flow-row">
+        <div class="node">
+          <span class="tag">Ground truth</span>
+          <h3>/context/ + /input/</h3>
+          <p>Business reality (read-only) plus external materials a subject brings in.</p>
+        </div>
+        <div class="arrow">→</div>
+        <div class="system">
+          <span class="tag">System</span>
+          <h3>/specs/ — the decisions</h3>
+          <p>Per-subject working docs that translate ground truth into decisions an agent can act on.</p>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node">
+          <span class="tag">Deliverable</span>
+          <h3>/output/</h3>
+          <p>Generated artifacts. Never hand-edited — sources are regenerated.</p>
+        </div>
+      </div>
+
+      <div class="loop">
+        <span class="pill">Iteration loop</span>
+        <span>If the output is wrong, <b>fix the system, not the output.</b> Update <b>/specs/</b> (subject decision) or <b>/context/</b> (general truth), then regenerate. When a learning generalizes beyond one subject, log it in <b>/iterations/</b> so the system gets smarter over time.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FIVE LAYERS -->
+  <section>
+    <p class="sect-title">The Five Layers</p>
+    <div class="layers">
+      <div class="layer">
+        <div class="head"><span class="name">/context/</span><span class="badge read">Read-only</span></div>
+        <div class="role">Ground truth</div>
+        <p class="desc">Structural reality of the business: voice, audience, services, pricing, constraints. Organized by topic, shared across every subject.</p>
+      </div>
+      <div class="layer">
+        <div class="head"><span class="name">/specs/</span><span class="badge edit">Editable</span></div>
+        <div class="role">Per-subject decisions</div>
+        <p class="desc">One folder per subject (client, project, campaign). Scope, decisions, internal notes. Where the system actually makes choices.</p>
+      </div>
+      <div class="layer">
+        <div class="head"><span class="name">/input/</span><span class="badge read">Read-only</span></div>
+        <div class="role">External material</div>
+        <p class="desc">Briefs, PDFs, photos, transcripts the subject brings in. Same slug as /specs/ and /output/. Never mixed with /context/.</p>
+      </div>
+      <div class="layer">
+        <div class="head"><span class="name">/output/</span><span class="badge gen">Generated</span></div>
+        <div class="role">Artifacts</div>
+        <p class="desc">Source files (HTML, MD) and rendered deliverables (PDFs). Reproducible from /context/ + /specs/ + /input/. Never edited by hand.</p>
+      </div>
+      <div class="layer">
+        <div class="head"><span class="name">/iterations/</span><span class="badge append">Append-only</span></div>
+        <div class="role">System memory</div>
+        <p class="desc">Each meaningful learning logged as v{N}-{slug}: manifest, feedback, changes, principle. The memory that prevents repeating mistakes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKFLOW STEPS -->
+  <section>
+    <p class="sect-title">A Session, Start to Finish</p>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <h4>Read context</h4>
+        <p>Agent reads /context/ first. This is ground truth — do not contradict it.</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h4>Open the subject</h4>
+        <p>cp -r specs/_template specs/{slug}/. Same slug in /input/ and /output/.</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h4>Load inputs</h4>
+        <p>Drop client materials into /input/{slug}/. Reference them from /specs/.</p>
+      </div>
+      <div class="step">
+        <div class="num">4</div>
+        <h4>Generate</h4>
+        <p>Produce sources and rendered files into /output/{slug}/. Don't edit by hand.</p>
+      </div>
+      <div class="step">
+        <div class="num">5</div>
+        <h4>Fix the system</h4>
+        <p>On wrong output, update /specs/ or /context/. Regenerate, don't patch.</p>
+      </div>
+      <div class="step">
+        <div class="num">6</div>
+        <h4>Log learnings</h4>
+        <p>If the lesson generalizes, append /iterations/v{N}-{slug}/ and update /context/.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RULES -->
+  <section>
+    <p class="sect-title">The Three Rules</p>
+    <div class="rules">
+      <div class="rule">
+        <div class="label">Rule 1 · The iteration rule</div>
+        <p>Do not fix the output. Fix the system. The wrong file is a symptom — the cause lives in /context/ or /specs/.</p>
+      </div>
+      <div class="rule warn">
+        <div class="label">Rule 2 · Separation of concerns</div>
+        <p>General truths → /context/. Subject-specific facts → /specs/{slug}/. External material → /input/{slug}/. Never mix.</p>
+      </div>
+      <div class="rule good">
+        <div class="label">Rule 3 · Generalize forward</div>
+        <p>When a per-subject lesson applies elsewhere, lift it to /context/ and log /iterations/. The system compounds.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="legend">
+      <span><span class="swatch" style="background:#2563eb"></span>Read-only</span>
+      <span><span class="swatch" style="background:#16a34a"></span>Editable</span>
+      <span><span class="swatch" style="background:#b45309"></span>Generated</span>
+      <span><span class="swatch" style="background:#7c3aed"></span>Append-only</span>
+    </div>
+    <div>Memory vs iterations: memory holds cross-session prefs that decay; /iterations/ holds durable changes anyone reading the repo should find.</div>
+  </footer>
+
+</div>
+</body>
+</html>

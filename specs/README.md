@@ -1,45 +1,59 @@
-# /specs/ — How to decide
+# /specs/ — Per-subject working documents
 
-EDITABLE.
+**Access: EDITABLE.**
 
-This is the operating system of the project. It does not describe what to generate — it describes how to make decisions when generating.
+This is where the system makes per-subject decisions. A "subject" is whatever unit of work this repo handles — a client, a project, a campaign, a feature, an experiment.
+
+For single-subject repos, files live directly here. For multi-subject repos (the common case), each subject gets its own subfolder.
 
 ---
+
+## Structure
+
+```
+specs/
+  _template/         # Skeleton to copy when starting a new subject
+  {subject-slug}/    # One folder per active subject
+    PRD.md           # What is being built, scope, audience, decisions
+    STYLE.md         # Per-subject tone/format adjustments (optional)
+    sections.md      # Per-subject structural decisions (optional)
+    ...              # Whatever other files this subject needs
+  ...
+```
+
+Use the same `{subject-slug}` across `/specs/`, `/input/`, and `/output/`. Consistency makes the system navigable.
 
 ## What belongs here
 
-- Rules for tone, style, and format
-- Decision criteria for ambiguous situations
-- Workflow definition (what steps, in what order, with what validation)
-- Output structure (what sections, what elements, what constraints)
-- Any rule that should apply consistently across all outputs
+- Subject-specific scope and decisions
+- Per-subject contacts, deadlines, internal notes
+- Argumentation behind a decision ("why this scope, not that")
+- The `_template/` skeleton for new subjects
 
 ## What does NOT belong here
 
-- Business truth → that goes in `/context/`
-- Generated outputs → those go in `/output/`
-- One-off notes or feedback → log those in `/iterations/`
+- **General rules that apply to all subjects** → those go in `/context/`
+- **Source documents from the subject** → `/input/{subject}/`
+- **Generated artifacts** → `/output/{subject}/`
+- **Design system, brand voice, pricing model** → all in `/context/`
 
 ---
 
-## How to fill this layer
+## How to start a new subject
 
-Before starting, define the rules that will govern how the system operates. Some common files:
+```bash
+cp -r specs/_template specs/{subject-slug}
+mkdir -p input/{subject-slug} output/{subject-slug}
+```
 
-- `PRD.md` — what is being built, scope, out-of-scope
-- `workflow.md` — the steps the system follows to produce an output
-- `style.md` — tone, voice, format rules
-- `validation.md` — criteria an output must meet before it is considered done
+Then fill the skeleton in `specs/{subject-slug}/` with the specifics.
 
 ---
 
-## The key rule
+## The rule
 
-When an output is wrong, the fix goes here — not in the output itself.
+If a decision is specific to this subject, it lives here. If the decision applies across subjects, **move it to `/context/`** — don't leave generalizable knowledge buried in one subject's spec.
 
-Example:
-- Copy is too technical for the audience → update `style.md` with a rule about language level
-- A section is always missing → update `workflow.md` to require it
-- The wrong metric is being optimized → update `PRD.md`
-
-Every fix here improves all future outputs automatically.
+When you learn something generalizable while working on a subject, do both:
+1. Apply the learning to that subject's spec immediately
+2. Move the generalization to `/context/` (and log an iteration if material)

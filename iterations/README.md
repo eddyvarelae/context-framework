@@ -1,48 +1,70 @@
 # /iterations/ — System memory
 
-APPEND-ONLY.
+**Access: APPEND-ONLY.**
 
-This layer documents what happened in each meaningful iteration: what was requested, what was generated, what was wrong, what changed in the system, and what principle was extracted.
+This layer documents each **meaningful** iteration: what was requested, what was generated, what was wrong, what changed in the system, and the principle extracted.
 
 It is not a changelog. It is the memory that prevents the system from repeating the same mistakes.
 
 ---
 
-## When to create a new iteration folder
+## When to create a new iteration
 
-Not every output needs an iteration log. Create one when:
+Not every output deserves an iteration log. Create one when:
 
-- A meaningful output was generated and reviewed
-- Feedback led to a change in `/specs/` or `/context/`
-- A principle was learned that should apply to future iterations
+- Feedback led to an update in `/context/` or `/specs/_template/`
+- A principle emerged that should apply to future subjects, not just the current one
+- A template, naming convention, or workflow changed
+- A pricing/scope/tone rule was learned
+
+For subject-specific feedback that doesn't generalize (a one-off scope decision for a single client), just update `/specs/{subject}/` — no iteration needed.
 
 ---
 
-## Folder convention
+## Structure
 
 ```
 iterations/
-  v1/
-  v2/
-  v3/
+  v-template/        # Canonical skeleton — copy to start a new iteration
+  v1-{short-slug}/   # First logged iteration
+    manifest.md      # What was requested, context active, workflow used
+    feedback.md      # What was corrected or rejected, with detail
+    changes.md       # What changed in /context/, /specs/_template/, or output templates
+    learning.md      # The generalizable principle extracted
+    output/          # Frozen snapshot of the output that motivated the iteration
+  v2-{short-slug}/
+    ...
 ```
 
-Each folder contains:
+Naming: `v{N}-{short-slug}` — e.g., `v1-pricing-discount-pattern`, `v2-presentation-format`. The slug helps you find the right iteration later without opening every folder.
 
-| File | What it captures |
+## What each file captures
+
+| File | Content |
 |---|---|
-| `manifest.md` | What was requested, what context was active, what workflow was used |
-| `output/` | Snapshot of what was generated (frozen copy, not the live output) |
-| `feedback.md` | What the human corrected or rejected, with as much detail as possible |
-| `changes.md` | What changed in `/specs/` or `/context/` as a result |
-| `learning.md` | The generalizable principle extracted — not "this was wrong" but "the rule that prevents this class of error" |
+| `manifest.md` | What was requested, what context was active, what workflow was used, date |
+| `feedback.md` | What was corrected or rejected, with detail — quote the human if possible |
+| `changes.md` | What concretely changed (files modified, rules updated, templates affected) |
+| `learning.md` | The generalizable principle — not "this was wrong" but "the rule that prevents this class of error" |
+| `output/` | Frozen snapshot of the output that motivated the iteration (not a live link) |
 
 ---
 
 ## What a good learning looks like
 
-Bad: "The copy was too formal."
+**Bad:** "The copy was too formal."
 
-Good: "Copy for non-technical audiences must avoid acronyms and product-internal terminology. If a term requires explanation, it should either be removed or replaced with the plain-language equivalent."
+**Good:** "Copy for non-technical audiences must avoid acronyms and product-internal terminology. If a term requires explanation, it should either be removed or replaced with the plain-language equivalent."
 
-The learning should be specific enough to update a rule in `/specs/`, and general enough to apply beyond this single case.
+The learning should be:
+- **Specific enough** to update a rule in `/context/`
+- **General enough** to apply beyond the single case
+- **Honest about edge cases** — write "when NOT to apply" if there are exceptions
+
+---
+
+## Memory vs iterations
+
+If the agent session has its own memory store (e.g., `~/.claude/projects/.../memory/`), use it for cross-session, non-repo knowledge: user preferences, contact info, project status. Use `/iterations/` for changes to the system itself that anyone reading this repo should be able to find.
+
+When in doubt: log an iteration AND save to memory. Iterations are durable in the repo; memory is faster to access during a session.

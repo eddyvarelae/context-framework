@@ -90,7 +90,7 @@ That's it.
 
 ## Relationship to the full framework
 
-This is the lean variant of the full Context-Driven framework (see the `main` branch). The mapping:
+This is the lean variant of the full Context-Driven framework (see the `full-framework` branch). The mapping:
 
 | Full framework | Lean version |
 |---|---|

@@ -20,12 +20,13 @@ Most people jump straight to *"build me an app."* The AI then guesses everything
 
 ## 1. Anatomy of an app
 
-Every app you'll build has the same four pieces. You don't have to code them — but you do need to know which one you're pointing the AI at.
+Every app you'll build has the same five pieces. You don't have to code them — but you do need to know which one you're pointing the AI at.
 
 - **Frontend** — everything the user sees and taps: screens, buttons, forms. *"The button is ugly"* is a frontend problem.
-- **Backend** — the logic that runs on the server: who's allowed to do what, what happens when someone books or pays. *"Stripe isn't charging"* is a backend problem.
+- **Backend** — the logic that runs on the server: who's allowed to do what, what happens when someone books or pays. *"Anyone can delete any listing"* is a backend problem.
 - **Database** — where the app remembers things: users, listings, bookings. *"It forgot my data"* is a database problem.
-- **Secrets** — the keys that unlock paid services (Stripe, login, the database itself). They live on the server as environment variables, never in frontend code.
+- **External services (APIs)** — the things your app talks to but doesn't own: login (Google), payments (Stripe), maps, email. *"Login is broken"* is an auth problem and *"the card isn't charging"* is a Stripe problem — not "the app is broken."
+- **Secrets** — the keys every external service hands you (Stripe, login, the database itself). They live on the server as environment variables, never in frontend code.
 
 > This is why your first message asks the AI to create an **ARCHITECTURE.md** file: a plain-language map of which piece is which in *your* app. When something breaks, read it first — you'll know what to ask for.
 
@@ -191,7 +192,19 @@ Replit doesn't just give you a chat — it gives you the whole workshop. Know yo
 
 ---
 
-## 8. Security
+## 8. Connections: auth & payments
+
+Anything external your app needs follows the same pattern: **create an account with the service, get a key, put the key in the Secrets tab, and tell the AI to wire it up.**
+
+- **Auth (login)** — lives inside Replit. Ask for Google login through Replit's auth integration and you're done. Never let the AI build its own password system — that's a solved problem, and homemade versions are where security holes live.
+- **Payments (Stripe)** — the code lives inside Replit, but the configuration doesn't. You create the account yourself at stripe.com, grab the API keys from the Stripe dashboard, and add them in the Secrets tab. Start in **test mode** (fake card numbers, no real money) and stay there until launch day.
+- **Everything else (APIs)** — maps, email, AI features: same pattern. Account, key, Secrets tab, then ask the AI to connect it.
+
+> When the AI says it needs a key, that's **your** job, not its. Go to the service's dashboard, create the key yourself, and add it in the Secrets tab — never paste it into the chat.
+
+---
+
+## 9. Security
 
 Three habits cover most of what goes wrong:
 
@@ -203,7 +216,7 @@ Three habits cover most of what goes wrong:
 
 ---
 
-## 9. Domain
+## 10. Domain
 
 Your deployed app starts at *yourapp.replit.app*. A real launch wants a real domain:
 
@@ -213,7 +226,7 @@ Your deployed app starts at *yourapp.replit.app*. A real launch wants a real dom
 
 ---
 
-## 10. Launch
+## 11. Launch
 
 The dev preview is not the live app. Before you share the link:
 

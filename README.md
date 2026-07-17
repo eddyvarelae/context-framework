@@ -12,7 +12,7 @@ A one-page distillation of the context framework, written for non-engineers usin
 
 A one-page guide for anyone using AI builders like Replit, Lovable, or Base44.
 
-Most people jump straight to *"build me an app."* The AI then guesses everything (who it's for, what it looks like, what it shouldn't do) and the guesses are usually wrong. **These three rules fix that.**
+Most people jump straight to *"build me an app."* The AI then guesses everything (who it's for, what it looks like, what it shouldn't do) and the guesses are usually wrong. **These four rules fix that.**
 
 ---
 
@@ -35,6 +35,11 @@ I've attached photos of my storyboard and POC screens. Use them as
 the reference for how each screen should look and how the user moves
 between them. The text below covers features, monetization, branding,
 security, and what NOT to build.
+
+Before you build anything, create an ARCHITECTURE.md file that
+explains in plain language what the frontend is, what the backend is,
+what the database stores, and how they connect. Keep it updated as
+the app grows.
 
 Core features:
 - [Google login for sign-up]
@@ -65,9 +70,9 @@ Branding & design:
   (Branding will come later, in a separate prompt.)
 
 Security: build this like a real app, keep secret keys (Stripe, DB,
-login) on the server, never in browser code; verify all user input
-and permissions on the server, not the client; stop and ask me if a
-step feels risky.
+login) in environment variables on the server, never in browser code
+and never hard-coded in files; verify all user input and permissions
+on the server, not the client; stop and ask me if a step feels risky.
 
 Don't add: [extra logins beyond Google, ads, long sign-up forms,
 paid tiers, dark mode toggle]
@@ -75,13 +80,27 @@ paid tiers, dark mode toggle]
 If anything is unclear, ask me before building.
 ```
 
-Wait for the AI to acknowledge, then let it build. From there, go slow: **one change at a time, not a list.**
+Wait for the AI to acknowledge, then let it build.
 
 > **Why this works:** you only say it once. Every feature you ask for afterwards inherits this context. Without it, every prompt is a fresh coin flip.
 
+> **Chat hygiene:** never paste real API keys, passwords, or anyone's personal data into the chat. Secrets belong in environment variables (Replit's Secrets tab) — the prompt above already tells the AI to keep them there.
+
 ---
 
-## Rule 2. When it's wrong, fix the rules, not the output
+## Rule 2. One feature per task — and read the replies
+
+After the first build, ask for **one change at a time, not a list**. And when you move on to a new feature, **start a new task** instead of continuing the old conversation.
+
+Long conversations fill up with dead ends and old mistakes — call it *context rot*. The AI re-reads all of it on every message, so it gets more confused *and* more expensive as you go. A fresh task loses nothing important: your spec from Rule 1 lives in the project's files and memory, not in the chat history.
+
+- **One feature per message. One feature per task.**
+- **Read every reply before sending the next message.** The AI tells you what it changed and often asks a question — skipping that is how bugs slip in.
+- **Budget for it.** Building a real app costs real money: plan on the $100/month tier and keep an eye on your usage. Fresh tasks aren't just cleaner, they're cheaper.
+
+---
+
+## Rule 3. When it's wrong, fix the rules, not the output
 
 It's tempting to keep arguing with the AI about the same screen. That's a trap. You'll have the same fight on the next screen, and the next.
 
@@ -108,13 +127,14 @@ A few rules people commonly end up needing:
 - "Never use red, it looks like an error."
 - "Always show prices with the currency symbol."
 - "When something succeeds, say it in plain language, not 'Success.'"
+- "Error messages must say what went wrong and what to do next — never just 'Something went wrong.'"
 - "Forms have at most 3 fields per screen."
 
 > The output is the symptom. The rules are the cause. **Fix the cause.**
 
 ---
 
-## Rule 3. Keep a tiny "lessons" note
+## Rule 4. Keep a tiny "lessons" note
 
 Open a Google Doc called **Lessons**. Every time you find a rule you wish you'd had on day one, write one line.
 
@@ -131,6 +151,6 @@ Next project, paste your lessons into Rule 1 from day one. Your context gets sma
 
 ## The whole loop
 
-**Set the context → let it build, then one change at a time → if it's wrong, fix the rules not the output → write down what you learned.**
+**Set the context → one feature per fresh task → if it's wrong, fix the rules not the output → write down what you learned.**
 
 That's it.

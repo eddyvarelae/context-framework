@@ -29,11 +29,13 @@ recreate by hand from the spec below.
 
 ---
 
-## Section 1 — Interest (everyone who opens the form)
+## Section 1 — Identity & interest (everyone who opens the form)
 
 1. **Your name** — short text, required
-2. **Email** — short text (optional; for the invite)
-3. **Are you interested in the advanced Part 2?** — multiple choice, required
+2. **Your assigned ID number** — short text, required
+3. **Team number** — dropdown (1–7), required
+4. **Email** — short text (optional; for the invite)
+5. **Are you interested in the advanced Part 2?** — multiple choice, required
    - Yes — count me in → *continue to the skills section*
    - Maybe — depends what's covered → *continue to the skills section*
    - No thanks → *skip to the end and submit*
@@ -62,7 +64,7 @@ recreate by hand from the spec below.
    - Built an AI agent or chatbot using an API (Claude, GPT…)
    - Built or configured an MCP server
    - Trained or ran a machine-learning / computer-vision model
-   - None of these yet — I'm just curious
+   - None of these yet — I'm just starting out
 
 5. **Which AI coding tools have you used?** — checkboxes, not required
    - Claude Code
@@ -104,9 +106,11 @@ recreate by hand from the spec below.
    hand?** — linear scale 1–5 (1 = "I need it for everything", 5 = "I can read
    and write it myself"), not required
 
-9. **What did you build in Part 1 (or before)?** — paragraph, not required.
-   *Drop a link if it's live.*
+9. **What is your team planning to build?** — paragraph, required.
+   *Your startup idea in a sentence or two — rough is fine.*
 
-10. **What are you hoping to build next?** — paragraph, not required.
+10. **What part of building it worries you most, or you have no idea how to do
+    yet?** — paragraph, not required. *This tells us what Part 2 should cover
+    for your team.*
 
 11. **Anything else we should know?** — paragraph, not required.

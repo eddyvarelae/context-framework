@@ -28,8 +28,17 @@ function createPart2Survey() {
   form.setCollectEmail(false); // email is asked as a question instead (optional)
   form.setProgressBar(true);
 
-  // ---- Section 1: interest gate (default first page) ----
+  // ---- Section 1: identity + interest gate (default first page) ----
   form.addTextItem().setTitle('Your name').setRequired(true);
+
+  form.addTextItem()
+    .setTitle('Your assigned ID number')
+    .setRequired(true);
+
+  form.addListItem()
+    .setTitle('Team number')
+    .setChoiceValues(['1', '2', '3', '4', '5', '6', '7'])
+    .setRequired(true);
 
   form.addTextItem()
     .setTitle('Email (optional)')
@@ -66,6 +75,7 @@ function createPart2Survey() {
       'Built an AI agent or chatbot using an API (Claude, GPT…)',
       'Built or configured an MCP server',
       'Trained or ran a machine-learning / computer-vision model',
+      "None of these yet — I'm just starting out",
     ])
     .showOtherOption(false);
 
@@ -121,11 +131,13 @@ function createPart2Survey() {
     .setLabels('I need it for everything', 'I can read and write it myself');
 
   form.addParagraphTextItem()
-    .setTitle('What did you build in Part 1 (or before)?')
-    .setHelpText("Drop a link if it's live.");
+    .setTitle('What is your team planning to build?')
+    .setHelpText('Your startup idea in a sentence or two — rough is fine.')
+    .setRequired(true);
 
   form.addParagraphTextItem()
-    .setTitle('What are you hoping to build next?');
+    .setTitle('What part of building it worries you most, or you have no idea how to do yet?')
+    .setHelpText('This tells us what Part 2 should cover for your team.');
 
   form.addParagraphTextItem()
     .setTitle('Anything else we should know?');

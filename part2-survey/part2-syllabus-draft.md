@@ -1,18 +1,21 @@
-# Building with AI — Part 2: Under the Hood
+# Building with AI — Part 2: Beyond the Builder
 ### Advanced syllabus — working draft
 
 ---
 
 ## The one-line
 
-Part 1 taught students to build the **front** of an app with an AI builder.
-Part 2 takes them **behind the dotted line** from the anatomy diagram — the
-server, the database, the APIs, the cloud — and levels up their tooling from
-browser copy-paste to agentic coding.
+Part 1 built apps **inside an AI builder that holds your hand** (Replit).
+Part 2 **leaves the sandbox**: students set up a real developer environment —
+**VS Code + Claude Code + the terminal + Git** — and use it to build a real
+backend, on real cloud, that they actually understand and control.
 
-> **The organizing metaphor is already in the Part 1 deck.** Slide 5 draws
-> `FRONT END | BACKEND (server ← database · API · secrets)` split by a dotted
-> line. Part 1 lived on the **left**. Part 2 is the **right side of the line.**
+> Two shifts at once, and both are what the survey asked for:
+> **1. The setup** — from browser copy-paste to Claude Code in a real editor.
+> **2. Behind the line** — from the front of an app to the server, database,
+> and cloud (the right side of Part 1's anatomy diagram).
+
+*Hardware / device pipelines are **out of scope** for Part 2.*
 
 ---
 
@@ -20,76 +23,65 @@ browser copy-paste to agentic coding.
 
 15 interested students, all beginner-to-intermediate, mentors excluded.
 
+- **The tooling gap:** 67% are still copy-pasting from the ChatGPT/Claude
+  browser; only 40% have touched an agentic tool like Claude Code; **60% flat
+  out asked to "code confidently without an AI builder."** → Part 2 is that.
+- **The knowledge gap:** they can code a little and deploy a *frontend* (47%),
+  but have **never built a backend (13%)**, **never touched cloud (0%)**,
+  **never wrote a serverless function (0%)**.
 - **Top demand:** real backends & APIs **73%**, databases **67%**, auth **60%**,
-  the Claude API **60%**, coding confidently without a builder **60%**.
-- **The gap:** they can code a little and deploy a *frontend* (47%), but have
-  **never built a backend (13%)**, **never touched cloud (0%)**, **never wrote
-  a serverless function (0%)**.
-- **The tooling:** 67% are still copy-pasting from the ChatGPT/Claude browser;
-  only 40% have used an agentic tool like Claude Code.
-- **The projects:** **4 of 7 teams are hardware/IoT** (sleep mask, dog
-  heat-stroke sensor, zipper alarm, robotics tracking) that all need the same
-  backbone: **device → cloud → app**. Their stated worries cluster on exactly
-  that hand-off.
+  the Claude API **60%**, AI agents **53%**, Claude Code fluency **47%**,
+  cloud/serverless **40%**, DevOps/CI-CD **33%**.
 
-**Conclusion: teach the missing middle.** Everything they want, everything
-they lack, and everything their products need points at the same layer.
+**Conclusion:** a real-tools, real-stack class. Not a deeper Replit — a
+graduation *out* of it.
 
 ---
 
 ## Who it's for · prerequisites
 
-- Completed Part 1 (or equivalent comfort with an AI builder).
-- Expected self-rated confidence ~2.5/5 — **we scaffold from there.** Not for
-  absolute beginners; not a re-run of Part 1.
-- Bring your team's product idea. The practice project builds a real backend
-  slice for *your* product.
-
----
-
-## Decisions to lock before finalizing *(your call — see notes at the end)*
-
-1. **The vehicle** — Replit (continuity) vs. Claude Code + AWS (real tools) vs.
-   **hybrid** *(recommended)*.
-2. **Length & cadence** — how many sessions, how long.
-3. **Grouping** — per-team vs. mixed; whether the 4 hardware teams get a
-   dedicated "device → cloud" track.
+- Completed Part 1 (or equivalent comfort building with an AI builder).
+- Expected self-rated confidence ~2.5/5 — **we scaffold**, but this is a step
+  up: real editor, real terminal, real cloud.
+- **A laptop they can install software on** (VS Code, Node, Git, Claude Code).
+  See logistics — this is the biggest gate.
 
 ---
 
 ## The arc (mirrors Part 1: I → II → III)
 
-### I. Behind the line — the backend they've never built
+### I. The real setup — leaving the builder
 
-| # | Module | What it covers | Why (demand · who needs it) |
+| # | Module | What it covers | Why (survey) |
 |---|---|---|---|
-| 1 | **The other half of the anatomy** | Recap the 5 parts from Part 1; today we build the **right** of the dotted line: server, database, API, secrets. | Anchors Part 2 in a diagram they already know. |
-| 2 | **Data & databases** | What a database really is, modeling data (tables/collections, fields, relationships), storing & querying. Why *"just make it remember everything"* isn't a spec. | **67% want it · 0 feel comfortable.** Every team stores data. |
-| 3 | **Backends & APIs** | Your own endpoints: request → server → response. What an API actually is, from both sides (calling one vs. building one). | **73% want it · 13% have built one.** The #1 gap. |
-| 4 | **Authentication** | Real login (Google / managed auth), sessions, why you **never roll your own** password system. | **60% want it.** Several teams have real users. |
-| 5 | **The pipeline** | The device/app → cloud → data → back-to-app loop. The backbone every hardware team is missing. | **The 4 IoT teams' explicit worry.** Sleep mask, sensor, alarm, tracking all live or die here. |
+| 1 | **Your real workshop** | Install & wire up **VS Code + Claude Code + the terminal + Git + a GitHub account.** What each piece is and why devs use it instead of a builder. | 67% still copy-paste; the whole class rests on this working. |
+| 2 | **Driving Claude Code** | Agentic coding in a real repo: plan → one task at a time → **read the diff** → checkpoint. The grown-up version of Part 1's "atomic tasks / read / specific." | **47% want Claude Code fluency; 60% want to code without a builder.** |
+| 3 | **Terminal & Git** | The command line without fear; version control, branches, commits, rollback; push to GitHub. | Underpins everything — 60% have used a terminal, only 40% use Git. |
 
-### II. Beyond the builder — real tools & real cloud
+### II. The real stack — behind the line
 
-| # | Module | What it covers | Why (demand · who needs it) |
+| # | Module | What it covers | Why (survey) |
 |---|---|---|---|
-| 6 | **Claude Code** | From browser copy-paste to an agent working in your actual repo. Planning, one-task-at-a-time, reading the diff. (Extends Part 1's "new task / atomic tasks / read.") | **67% still copy-paste · only 40% on Claude Code · 47% want fluency.** |
-| 7 | **Terminal & Git** | The command line without fear; version control, branches, checkpoints & rollback so you never lose a day's work. | Underpins everything; **60% used a terminal, only 40% use Git.** |
-| 8 | **The cloud** | AWS basics — a function that runs in the cloud (Lambda), file/object storage (S3), a hosted database. Why "serverless." | **40% want cloud · 0% have touched it.** Powers the pipeline (module 5). |
-| 9 | **Ship it for real** | Deploy a backend that stays up, secrets in production, and CI/CD — push to GitHub, it goes live. | **60% want to code confidently; 33% want DevOps.** Reuse the real `findthetrashcoder` GitHub→Hostinger pipeline as the worked example. |
-| 10 | **AI inside your product** | Calling the Claude API from your own backend; agents & tools (function calling). **MCP as an elective** for the few who want it. | **Claude API 60% · agents 53% · MCP 27%.** |
+| 4 | **Data & databases** | What a database really is; modeling data (tables/fields/relationships); storing & querying. Why *"just make it remember"* isn't a spec. | **67% want it · 0 feel comfortable.** |
+| 5 | **Backends & APIs** | Your own endpoints: request → server → response. What an API is from both sides — calling one and building one. | **73% want it · 13% have built one — the #1 gap.** |
+| 6 | **Authentication** | Real login (Google / managed auth), sessions, why you **never roll your own** password system. | **60% want it.** |
+| 7 | **The cloud** | AWS basics kept light: a function that runs in the cloud (Lambda), object storage (S3), a hosted database. Why "serverless." | **40% want cloud · 0% have touched it.** |
+| 8 | **Ship it for real** | Deploy a backend that stays up; secrets in production; **CI/CD** — push to GitHub, it goes live. | **60% code-confidence · 33% DevOps.** Reuse a real GitHub→deploy pipeline as the worked example. |
+| 9 | **AI inside your product** | Calling the Claude API from your **own** backend; agents & tools (function calling). **MCP as an elective.** | **Claude API 60% · agents 53% · MCP 27%.** |
 
-### III. Practice — build the missing middle
+### III. Practice — build a real app, end to end
 
-Each team ships a **real backend slice** for their own product:
+In the real environment, driven by Claude Code, each student/team ships a small
+but complete app:
 
-- a **database** that stores their core data,
-- an **API** their app (or device) can call,
-- **auth** so the right person sees the right data,
-- wired to their **Part 1 frontend** (or their device).
+- a **repo** on GitHub,
+- a **backend** — database + API + auth,
+- a **frontend** that talks to it,
+- one real **AI feature** (Claude API),
+- **deployed** via CI/CD.
 
-**Stretch goals:** deploy it live · put one real **AI feature** in it · (hardware
-teams) push a reading from a device through the cloud and back to the app.
+Built around a **common reference app** (so no one is blocked by their own idea)
+or the team's own software product — their choice.
 
 ---
 
@@ -97,48 +89,54 @@ teams) push a reading from a device through the cloud and back to the app.
 
 | Survey topic | Demand | Module |
 |---|---|---|
-| Building real backends & APIs | 73% | **3** |
-| Databases | 67% | **2** |
-| Authentication | 60% | **4** |
-| The Claude API in apps | 60% | **10** |
-| Coding confidently w/o a builder | 60% | **6, 7, 9** (throughline) |
-| AI agents & tools | 53% | **10** |
-| Claude Code / agentic coding | 47% | **6** |
-| Cloud & serverless (AWS) | 40% | **8** |
+| Building real backends & APIs | 73% | **5** |
+| Databases | 67% | **4** |
+| Authentication | 60% | **6** |
+| The Claude API in apps | 60% | **9** |
+| Coding confidently w/o a builder | 60% | **1, 2, 3** (the whole premise) |
+| AI agents & tools | 53% | **9** |
+| Claude Code / agentic coding | 47% | **2** |
+| Cloud & serverless (AWS) | 40% | **7** |
 | Computer vision & ML | 40% | *elective / office hours* |
-| DevOps: Git, CI/CD | 33% | **7, 9** |
-| MCP servers | 27% | **10** (elective) |
+| DevOps: Git, CI/CD | 33% | **3, 8** |
+| MCP servers | 27% | **9** (elective) |
 
-*Computer vision (40%) is the one strong ask that doesn't fit the backbone —
-Shradha, Juhi, Ishayan, Raj want it. Options: a bonus module, an office-hours
-track, or fold into module 10 for teams whose product needs it (none currently
-core-depend on CV). Flagging rather than silently dropping.*
+*Computer vision (40% — Shradha, Juhi, Ishayan, Raj) is the one strong ask
+outside the backbone. Options: a bonus module, office-hours track, or a Claude-
+API vision demo in module 9. Flagged, not dropped.*
 
 ---
 
-## Notes on the open decisions
+## Logistics to lock (bigger now that we've left the builder)
 
-**Vehicle — recommend hybrid.** Keep **Replit** as the familiar home base
-(they already know its DB, Auth, Deployments, Secrets from Part 1 slides 8–11),
-but drive it with **Claude Code** instead of copy-paste, and teach the real
-concepts using Replit's managed pieces *first*, then show "here's how this works
-on real cloud (AWS)" for depth — especially for the hardware teams who genuinely
-need a cloud pipeline. Full AWS-from-scratch is likely too steep for a ~2.5/5
-cohort; pure-Replit undersells the "beyond the builder" promise. Hybrid gets
-both.
+**Machines — the #1 gate.** Every student needs a laptop they can install on
+(VS Code, Node, Git, Claude Code). School-managed laptops often block installs;
+check the OS mix (Mac/Windows) — setup steps differ and module 1 must cover
+both. A pre-class "install checklist" sent ahead will save the first session.
 
-**Length.** The 10 modules split cleanly into **two blocks** (I: the backend
-concepts; II: the tools & cloud) plus a practice build. Natural shapes: a
-2-session intensive (concepts, then build), or a 3–4 session mini-course. Sizing
-depends on session length — needs your call.
+**Claude Code access & cost.** Claude Code needs an Anthropic login (a Claude
+subscription or API credits). Decide who provisions and pays — per-student
+accounts, a shared class plan, or credits. This is the equivalent of Part 1's
+"$100 Replit tier" conversation, and it needs an answer before day one.
 
-**Grouping & the hardware track.** 4 of 7 teams share the device→cloud→app need
-(module 5 + 8). Worth considering a **dedicated hardware-pipeline breakout** so
-the sleep-mask / sensor / alarm / robotics teams go deep on the hand-off while
-the software teams (CRM, verification site, storefront) focus on
-API+DB+auth+payments.
+**Cloud accounts.** AWS with minors + billing is a real consideration. Options:
+a **shared teaching AWS account** with tight limits, per-student free-tier
+accounts, or keep module 7 demo-only on the instructor's account. Recommend
+shared/instructor-driven to avoid surprise bills.
 
-**Seat size.** 12 firm "yes" + 3 "maybe" = plan for **~15–18 seats.**
+**Stack choice — needs your call.** Standardize on one backend stack:
+- **Node / TypeScript** — matches the AWS-serverless deployment path and their
+  JS/TS familiarity (73%). Coherent all the way to the cloud module. *(Leans
+  toward what you already build.)*
+- **Python** — their strongest language (80% have written it), gentler syntax.
+  Great for the API/DB modules; slightly more setup for the serverless deploy.
+
+**Length & cadence.** Nine modules split into two blocks (setup+workflow, then
+the stack) plus a build. Natural shapes: a longer multi-session mini-course, or
+an intensive. Sizing depends on session length — your call.
+
+**Seats.** 12 firm "yes" + 3 "maybe" → plan for **~15–18**, but the
+laptop/install gate may lower who can actually participate.
 
 ---
 
